@@ -24,6 +24,6 @@ steps:
   displayName: 'Run a Docker Compose command'
   inputs:
     containerregistrytype: 'Container Registry'
-    dockerComposeFile: '02-azure-pipelines.yml'
+    dockerComposeFile: '02-azure-pipeline.yml'
     dockerComposeCommand: build
     arguments: '$(ProjectName)'
