@@ -23,7 +23,7 @@ steps:
 - task: DockerCompose@0
   displayName: 'Run a Docker Compose command'
   inputs:
-    containerregistrytype: 'Container Registry'
-    dockerComposeFile: '02-azure-pipeline.yml'
+    containerregistrytype: 'JhansiHub'
+    dockerComposeFile: '**/docker-compose.yml'
     dockerComposeCommand: build
     arguments: '$(ProjectName)'
