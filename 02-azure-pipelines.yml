@@ -9,21 +9,9 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    goals: 'package'
-
 - task: DockerCompose@0
   displayName: 'Run a Docker Compose command'
   inputs:
     containerregistrytype: 'JhansiHub'
     dockerComposeFile: '**/docker-compose.yml'
     dockerComposeCommand: build
-    arguments: '$(ProjectName)'
