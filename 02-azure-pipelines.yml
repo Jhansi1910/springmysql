@@ -24,6 +24,6 @@ steps:
   displayName: 'Run a Docker Compose command'
   inputs:
     containerregistrytype: 'Container Registry'
-    dockerComposeFile: 'springmysql/docker-compose.yml'
+    dockerComposeFile: '02-azure-pipelines.yml'
     dockerComposeCommand: build
     arguments: '$(ProjectName)'
