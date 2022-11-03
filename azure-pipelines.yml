@@ -10,11 +10,25 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: AzureMysqlDeployment@1
-  inputs:
-    azureSubscription: 'BFSI_LGI_DevOps_Training_POC(f3f0b402-1498-4537-9728-704a780011a0)'
-    ServerName: 'mydemoserver1910.mysql.database.azure.com'
-    SqlUsername: 'mydemoadmin@mydemoserver1910'
-    SqlPassword: 'Virtualmachine1@'
-    TaskNameSelector: 'SqlTaskFile'
-    IpDetectionMethod: 'AutoDetect'
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: MavenPackageAndPublishArtifacts
+    displayName: Maven Package and Publish Artifacts
+    pool:
+      vmImage: $(vmImageName)
+
+    steps:
+    - task: Maven@3
+      displayName: 'Maven Package'
+      inputs:
+        mavenPomFile: 'pom.xml'
+    - task: DockerCompose@0
+      inputs:
+            containerregistrytype: 'Azure Container Registry'
+            azureSubscription: 'BFSI_LGI_DevOps_Training_POC(1)(f3f0b402-1498-4537-9728-704a780011a0)'
+            azureContainerRegistry: '{"loginServer":"janucontainer.azurecr.io", "id" : "/subscriptions/f3f0b402-1498-4537-9728-704a780011a0/resourceGroups/jhansi-rg/providers/Microsoft.ContainerRegistry/registries/janucontainer"}'
+            dockerComposeFile: '**/docker-compose.yml'
+            action: 'Run a Docker Compose command'
+            dockerComposeCommand: 'build'
