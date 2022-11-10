@@ -34,12 +34,6 @@ stages:
       displayName: 'Maven Package'
       inputs:
         mavenPomFile: 'pom.xml'
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'pulluturu'
-        repository: 'jhansiconrep'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
 
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
